@@ -7,7 +7,9 @@ pipeline {
       }
     }
     stage('Try a Job') {
-      build job: 'GdummyTest'
+      steps {
+        build job: 'GdummyTest'
+      }
     }
   }
 }
