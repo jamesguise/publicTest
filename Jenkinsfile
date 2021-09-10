@@ -4,7 +4,6 @@ pipeline {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
-        echo "hello from Trey"
       }
     }
     stage('Try a Job') {
@@ -20,10 +19,7 @@ pipeline {
     }
     stage('Get PR info') {
       steps {
-        if (env.BRANCH_NAME.startsWith('PR-')) {
-          def prNum = env.BRANCH_NAME.replace(/^PR-/, '')
-          echo prNum
-        }
+        echo env.CHANGE_ID
       }
     }
   }
