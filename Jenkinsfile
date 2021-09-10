@@ -6,5 +6,8 @@ pipeline {
         echo "hello from Jenkinsfile"
       }
     }
+    stage('Try a Job') {
+      build job: 'GdummyTest'
+    }
   }
 }
