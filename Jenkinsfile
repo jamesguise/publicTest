@@ -11,5 +11,10 @@ pipeline {
         build job: 'GdummyTest'
       }
     }
+    stage('Try a MultiJob') {
+      steps {
+        build job: 'MultiJob-Guise-test'
+      }
+    }
   }
 }
