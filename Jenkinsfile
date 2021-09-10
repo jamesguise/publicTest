@@ -1,5 +1,5 @@
 pipeline {
-  agent {label "dcs-jenkins 72 host2"}
+  node {'dcs-jenkins 72 host2'}
   stages {
     stage('Hello') {
       steps {
