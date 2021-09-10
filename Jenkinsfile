@@ -4,6 +4,7 @@ pipeline {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
+        echo "hello from Trey"
       }
     }
     stage('Try a Job') {
