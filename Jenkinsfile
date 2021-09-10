@@ -13,7 +13,16 @@ pipeline {
     }
     stage('Try a MultiJob') {
       steps {
-        build job: 'MultiJob-Guise-test'
+        // build job: 'MultiJob-Guise-test'
+        echo "MultiJob done"
+      }
+    }
+    stage('Get PR info') {
+      steps {
+        if (env.BRANCH_NAME.startsWith('PR-')) {
+          def prNum = env.BRANCH_NAME.replace(/^PR-/, '')
+          echo prNum
+        }
       }
     }
   }
