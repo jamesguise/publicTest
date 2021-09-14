@@ -27,6 +27,7 @@ pipeline {
       steps {
         script {
           if (env.CHANGE_ID) {
+            echo 'FOUND A PR!!!'
             for (comment in pullRequest.comments) {
               if (comment.user == "automation-user") {
                 pullRequest.deleteComment(comment.id)
