@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Try a MultiJob') {
       steps {
-        // build job: 'MultiJob-Guise-test'
+        build job: 'MultiJob-Guise-test'
         echo "MultiJob done"
       }
     }
