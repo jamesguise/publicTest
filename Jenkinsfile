@@ -41,4 +41,5 @@ pipeline {
     unstable {
       echo "The run was marked as unstable!"
     }
+  }
 }
