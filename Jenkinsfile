@@ -17,10 +17,23 @@ pipeline {
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
           // userRemoteConfigs: [[refspec: "+refs/pull/41/head:refs/remotes/origin/PR-41", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
-          extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
+        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
+          // extensions: [[$class: 'LocalBranch']],
+          // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        checkout scm
+      }
+    }
+    stage('Comment') {
+      steps {
+        if (env.CHANGE_ID) {
+          for (comment in pullRequest.somments) {
+            if (comment.user == "automation-user") {
+              pullRequest.deleteComment(comment.id)
+            }
+          }
+          def date = sh(returnStdout: true, script: "date -u").trim()
+          pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
+        }
       }
     }
     stage('Try a Job') {
