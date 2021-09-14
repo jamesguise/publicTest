@@ -24,16 +24,14 @@ pipeline {
       }
     }
     stage('Comment') {
-      steps {
-        if (env.CHANGE_ID) {
-          for (comment in pullRequest.somments) {
-            if (comment.user == "automation-user") {
-              pullRequest.deleteComment(comment.id)
-            }
+      if (env.CHANGE_ID) {
+        for (comment in pullRequest.somments) {
+          if (comment.user == "automation-user") {
+            pullRequest.deleteComment(comment.id)
           }
-          def date = sh(returnStdout: true, script: "date -u").trim()
-          pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
         }
+        def date = sh(returnStdout: true, script: "date -u").trim()
+        pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
       }
     }
     stage('Try a Job') {
