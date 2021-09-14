@@ -20,7 +20,7 @@ pipeline {
         checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           extensions: [[$class: 'LocalBranch']],
           userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        }
+        
       }
     }
     stage('Try a Job') {
