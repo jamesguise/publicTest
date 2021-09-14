@@ -10,6 +10,7 @@ pipeline {
       steps {
         // git branch: 'main', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
+        git fetch origin +refs/pull/*/merge:refs/remotes/origin/pr/*      
       }
     }
     stage('Try a Job') {
