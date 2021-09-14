@@ -6,6 +6,11 @@ pipeline {
         echo "hello from Jenkinsfile"
       }
     }
+    stage('Checkout branch') {
+      steps {
+        git branch: 'main', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
+      }
+    }
     stage('Try a Job') {
       steps {
         build job: 'GdummyTest'
