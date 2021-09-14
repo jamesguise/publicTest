@@ -19,7 +19,7 @@ pipeline {
           // userRemoteConfigs: [[refspec: "+refs/pull/41/head:refs/remotes/origin/PR-41", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         checkoutConfig.with {
           branches = [[ name: 'pr/41' ]]
-          userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+          userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]]
         }
       }
     }
