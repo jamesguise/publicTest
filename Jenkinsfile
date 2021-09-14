@@ -9,6 +9,8 @@ pipeline {
     stage('Checkout branch') {
       steps {
         git branch: 'main', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
+        git ls-remote origin 'pull/*/head'
+        git checkout pr
       }
     }
     stage('Try a Job') {
