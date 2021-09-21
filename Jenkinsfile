@@ -26,7 +26,7 @@ pipeline {
     stage('Comment') {
       steps {
         script {
-          if (env.CHANGE_ID) {
+          if (${env.CHANGE_ID}) {
             echo 'FOUND A PR!!!'
             //for (comment in pullRequest.comments) {
               //if (comment.user == "automation-user") {
@@ -52,7 +52,8 @@ pipeline {
     }
     stage('Get PR info') {
       steps {
-        echo env.CHANGE_ID
+        echo ${env.BRANCH_NAME}
+        echo ${env.CHANGE_ID}
       }
     }
   }
