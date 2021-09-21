@@ -17,13 +17,13 @@ pipeline {
           // extensions: [[$class: 'LocalBranch']],
           // userRemoteConfigs: [[refspec: "+refs/pull/${params.PR_NUMBER}/head:refs/remotes/origin/PR-${params.PR_NUMBER}", url: "https://${GITHUB_TOKEN}@github.com/${YOUR_REPO}"]]])
         
-        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
-          // extensions: [[$class: 'LocalBranch']],
-          // userRemoteConfigs: [[refspec: "+refs/pull/41/head:refs/remotes/origin/PR-41", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
         checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        
+        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
+          // extensions: [[$class: 'LocalBranch']],
+          // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         //checkout scm
         echo "Checked out!"
