@@ -36,7 +36,7 @@ pipeline {
         script {
           if ("${env.CHANGE_ID}") {
             echo 'FOUND A PR!!!'
-            echo "CHANGE_ID: ${env.CHANGE_ID}"
+            echo "CHANGE_ID: ${CHANGE_ID}"
             echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
             echo "BRANCH_NAME: ${env.BRANCH_NAME}"
             echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
