@@ -10,12 +10,13 @@ pipeline {
       }
     }
     stage('Checkout branch') {
-      steps {
+      git fetch origin
+      //steps {
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
         
         //git fetch origin +refs/pull/*/merge:refs/remotes/origin/pr/*
-        git fetch origin
+        //git fetch origin
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
@@ -32,8 +33,8 @@ pipeline {
           // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         //checkout scm
-        echo "Checked out!"
-      }
+        //echo "Checked out!"
+      //}
     }
     stage('Comment') {
       steps {
