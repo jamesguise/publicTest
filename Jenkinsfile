@@ -28,6 +28,12 @@ pipeline {
         script {
           if ("${env.CHANGE_ID}") {
             echo 'FOUND A PR!!!'
+            echo "${env.CHANGE_ID}"
+            echo "${env.CHANGE_TARGET}"
+            echo "${env.BRANCH_NAME}"
+            echo "${env.CHANGE_BRANCH}"
+            echo "${env.BUILD_NUMBER}"
+            echo "${env.BUILD_ID}"
             //for (comment in pullRequest.comments) {
               //if (comment.user == "automation-user") {
                 //pullRequest.deleteComment(comment.id)
