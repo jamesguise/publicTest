@@ -28,13 +28,13 @@ pipeline {
         script {
           if (env.CHANGE_ID) {
             echo 'FOUND A PR!!!'
-            for (comment in pullRequest.comments) {
-              if (comment.user == "automation-user") {
-                pullRequest.deleteComment(comment.id)
-              }
-            }
-            def date = sh(returnStdout: true, script: "date -u").trim()
-            pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
+            //for (comment in pullRequest.comments) {
+              //if (comment.user == "automation-user") {
+                //pullRequest.deleteComment(comment.id)
+              //}
+            //}
+            //def date = sh(returnStdout: true, script: "date -u").trim()
+            //pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
           }
         }
       }
