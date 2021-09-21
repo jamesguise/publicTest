@@ -10,8 +10,7 @@ pipeline {
       }
     }
     stage('Checkout branch') {
-      git fetch origin
-      //steps {
+      steps {
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
         
@@ -24,22 +23,22 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        //checkout([$class: 'GitSCM', branches: [[name: '*/test']],
-          //extensions: [[$class: 'LocalBranch']],
-          //userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+          extensions: [[$class: 'LocalBranch']],
+          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
           // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         //checkout scm
-        //echo "Checked out!"
-      //}
+        echo "Checked out!"
+      }
     }
     stage('Comment') {
       steps {
         script {
-          if ("${env.CHANGE_ID}") {
+          if (env.CHANGE_ID) {
             echo 'FOUND A PR!!!'
             echo "CHANGE_ID: ${env.CHANGE_ID}"
             echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
