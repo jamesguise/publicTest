@@ -19,9 +19,9 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']],
-          extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        // checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+          // extensions: [[$class: 'LocalBranch']],
+          // userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
@@ -66,9 +66,14 @@ pipeline {
       }
     }
     stage('Get PR info') {
+      when {
+        allOf {
+          expression { env.CHANGE_ID != null }
+          expression { env.CHANGE_TARGET != null }
+        }
+      }
       steps {
-        echo "${env.BRANCH_NAME}"
-        echo "${env.CHANGE_ID}"
+        echo "Building PR #${env.CHANGE_ID}"
       }
     }
   }
