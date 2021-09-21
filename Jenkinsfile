@@ -20,7 +20,8 @@ pipeline {
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
           // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        checkout scm
+        //checkout scm
+        echo "Checked out!"
       }
     }
     stage('Comment') {
@@ -34,7 +35,7 @@ pipeline {
             echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
             echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
             echo "BUILD_ID: ${env.BUILD_ID}"
-            echo "Pull Request ID: ${pullRequest.id}"
+            //echo "Pull Request ID: ${pullRequest.id}"
             //for (comment in pullRequest.comments) {
               //if (comment.user == "automation-user") {
                 //pullRequest.deleteComment(comment.id)
