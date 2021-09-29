@@ -33,6 +33,7 @@ pipeline {
         
         //checkout scm
         echo "Checked out!"
+        echo "CHANGE_ID: ${env.CHANGE_ID}"
       }
     }
     stage('Comment') {
