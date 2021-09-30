@@ -14,8 +14,8 @@ pipeline {
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
-        sh("git fetch origin pull/46/head:origin/PR-46")
-        sh("git checkout origin/PR-46")
+        //sh("git fetch origin pull/46/head:origin/PR-46")
+        sh "git checkout origin/prTestdummy"
         
         
         //checkout([$class: 'GitSCM', branches: [[name: "'*/main'"]],
