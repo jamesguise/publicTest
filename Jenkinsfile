@@ -6,28 +6,21 @@ pipeline {
   }
   environment {
     TEMP_VAR = 'true'
-    d = checkout scm
   }
   stages {
     stage('Check PR Queue') {
       steps {
-        echo "branch: ${d.GIT_BRANCH}"
-        echo "commit: ${d.GIT_COMMIT}"
-        
+        //echo "branch: ${d.GIT_BRANCH}"
+        //echo "commit: ${d.GIT_COMMIT}"
         //sh("git fetch origin pull/46/head:origin/PR-46")
         //sh "git checkout origin/prTestdummy"
-        
         
         //checkout([$class: 'GitSCM', branches: [[name: "'*/main'"]],
           //extensions: [[$class: 'LocalBranch']],
           //userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         echo "Check PR Queue . . ."
-        // echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
-      }
-    }
-    stage('Checkout PR/branch') {
-      steps {
+        
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
         echo "CHANGE_URL: ${env.CHANGE_URL}"
@@ -41,6 +34,11 @@ pipeline {
         echo "JENKINS_URL: ${env.JENKINS_URL}"
         echo "JENKINS_HOME: ${env.JENKINS_HOME}"
         echo "JOB_NAME: ${env.JOB_NAME}"
+      }
+    }
+    stage('Checkout PR/branch') {
+      steps {
+        
         //checkout([$class: 'GitSCM',
           //        branches: [[name: '*/main']],
             //      extensions: [],
@@ -58,7 +56,7 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        checkout([$class: 'GitSCM', branches: [[name: 'FETCH_HEAD']],
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']],
           extensions: [[$class: 'LocalBranch']],
           userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
