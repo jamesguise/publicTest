@@ -45,7 +45,7 @@ pipeline {
         //checkout scm
         echo "Checked out!"
         echo "CHANGE_ID: ${env.CHANGE_ID}"
-        githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: '', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
+        githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
         
       }
     }
