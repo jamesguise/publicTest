@@ -11,6 +11,10 @@ pipeline {
   stages {
     stage('Hello') {
       steps {
+        def d = checkout scm
+        echo "branch: ${d.GIT_BRANCH}"
+        echo "commit: ${d.GIT_COMMIT}"
+        
         echo "hello from Jenkinsfile"
         // echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
       }
