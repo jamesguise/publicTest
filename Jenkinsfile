@@ -20,8 +20,8 @@ pipeline {
         checkout([$class: 'GitSCM',
                   branches: [[name: '*/main']],
                   extensions: [],
-                  userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        echo scm.getUserRemoteConfigs()
+                  userRemoteConfigs: [[refspec: "+refs/pull/*:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        // echo scm.getUserRemoteConfigs()
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
         echo "CHANGE_ID: ${env.CHANGE_ID}"
