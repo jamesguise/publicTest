@@ -58,7 +58,7 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        checkout([$class: 'GitSCM', branches: [[name: '']],
+        checkout([$class: 'GitSCM', branches: [[name: 'FETCH_HEAD']],
           extensions: [[$class: 'LocalBranch']],
           userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
