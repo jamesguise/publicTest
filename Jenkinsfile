@@ -6,12 +6,11 @@ pipeline {
   }
   environment {
     TEMP_VAR = 'true'
-    
+    d = checkout scm
   }
   stages {
     stage('Hello') {
       steps {
-        d = checkout scm
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
