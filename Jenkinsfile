@@ -14,6 +14,10 @@ pipeline {
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
+        checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
+          extensions: [[$class: 'LocalBranch']],
+          userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin1/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        
         echo "hello from Jenkinsfile"
         // echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
       }
@@ -52,7 +56,7 @@ pipeline {
         
         checkout([$class: 'GitSCM', branches: [[name: '*/main']],
           extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+          userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin1/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
