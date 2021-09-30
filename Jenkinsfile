@@ -2,7 +2,9 @@ pipeline {
   agent { node { label 'dcs-jenkins_72_host2' } }
   environment {
     TEMP_VAR = 'true'
-    details = checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
+    details = checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+          extensions: [[$class: 'LocalBranch']],
+          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
     
   }
   stages {
