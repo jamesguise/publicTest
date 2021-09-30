@@ -1,10 +1,7 @@
 pipeline {
   agent { 
     node { 
-      label 'dcs-jenkins_72_host2' 
-      checkout([$class: 'GitSCM', branches: [[name: '*/main']],
-          extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+      label 'dcs-jenkins_72_host2'
     } 
   }
   environment {
@@ -20,9 +17,12 @@ pipeline {
     }
     stage('Checkout branch') {
       steps {
+        git branch: 'main',
+            credentialsId: 'Project1TestPoll-2',
+            url: 'https://github.com/jamesguise/publicTest.git'
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
-        
+        echo "CHANGE_ID: ${env.CHANGE_ID}"
         //git fetch origin +refs/pull/*/merge:refs/remotes/origin/pr/*
         //git fetch origin
         
