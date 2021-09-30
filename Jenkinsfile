@@ -29,6 +29,7 @@ pipeline {
         echo "NODE_NAME: ${env.NODE_NAME}"
         echo "JENKINS_URL: ${env.JENKINS_URL}"
         echo "JENKINS_HOME: ${env.JENKINS_HOME}"
+        echo "JOB_NAME: ${env.JOB_NAME}"
         //checkout([$class: 'GitSCM',
           //        branches: [[name: '*/main']],
             //      extensions: [],
@@ -48,7 +49,7 @@ pipeline {
         
         checkout([$class: 'GitSCM', branches: [[name: '*/main']],
           extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+          userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
