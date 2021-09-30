@@ -17,14 +17,26 @@ pipeline {
     }
     stage('Checkout branch') {
       steps {
-        checkout([$class: 'GitSCM',
-                  branches: [[name: '*/main']],
-                  extensions: [],
-                  userRemoteConfigs: [[refspec: "+refs/pull/*:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        echo "CHANGE_ID: ${env.CHANGE_ID}"
+        echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
+        echo "CHANGE_URL: ${env.CHANGE_URL}"
+        echo "CHANGE_TITLE: ${env.CHANGE_TITLE}"
+        echo "CHANGE_AUTHOR: ${env.CHANGE_AUTHOR}"
+        echo "BRANCH_NAME: ${env.BRANCH_NAME}"
+        echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
+        echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
+        echo "BUILD_ID: ${env.BUILD_ID}"
+        echo "NODE_NAME: ${env.NODE_NAME}"
+        echo "JENKINS_URL: ${env.JENKINS_URL}"
+        echo "JENKINS_HOME: ${env.JENKINS_HOME}"
+        //checkout([$class: 'GitSCM',
+          //        branches: [[name: '*/main']],
+            //      extensions: [],
+              //    userRemoteConfigs: [[refspec: "+refs/pull/*:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         // echo scm.getUserRemoteConfigs()
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
-        echo "CHANGE_ID: ${env.CHANGE_ID}"
+        //echo "CHANGE_ID: ${env.CHANGE_ID}"
         //git fetch origin +refs/pull/*/merge:refs/remotes/origin/pr/*
         //git fetch origin
         
@@ -36,7 +48,7 @@ pipeline {
         
         checkout([$class: 'GitSCM', branches: [[name: '*/main']],
           extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-45", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+          userRemoteConfigs: [[refspec: "+refs/pull/45/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
