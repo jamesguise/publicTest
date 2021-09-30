@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Hello') {
       steps {
-        def d = checkout scm
+        d = checkout scm
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
