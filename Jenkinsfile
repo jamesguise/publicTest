@@ -14,7 +14,7 @@ pipeline {
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
-        git fetch origin refs/pull/46/head:refs/remotes/origin/PR-46
+        git fetch origin pull/46/head:origin/PR-46
         git checkout origin/PR-46
         
         
