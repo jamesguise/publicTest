@@ -56,9 +56,9 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']],
-          extensions: [[$class: 'LocalBranch']],
-          userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        //checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+          //extensions: [[$class: 'LocalBranch']],
+          //userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
           // extensions: [[$class: 'LocalBranch']],
@@ -68,7 +68,7 @@ pipeline {
         echo "Checked out a PR/branch!"
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
-        gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} run started')
+        //gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} run started')
       }
     }
     stage('Build csi-driver') {
@@ -100,13 +100,13 @@ pipeline {
     }
     stage('Run csi-driver tests') {
       steps {
-        build job: 'GdummyTest'
+        //build job: 'GdummyTest'
         echo 'Run csi-driver tests . . .'
       }
     }
     stage('Try a MultiJob') {
       steps {
-        build job: 'MultiJob-Guise-test'
+        //build job: 'MultiJob-Guise-test'
         echo "MultiJob done"
       }
     }
