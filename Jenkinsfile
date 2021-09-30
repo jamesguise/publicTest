@@ -20,7 +20,7 @@ pipeline {
         checkout([$class: 'GitSCM',
                   branches: [[name: '*/main']],
                   extensions: [],
-                  userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+                  userRemoteConfigs: [[credentialsId: 'gumby-github-app', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
