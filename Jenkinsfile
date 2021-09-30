@@ -7,6 +7,8 @@ pipeline {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
+        details = checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
+        echo "CHANGE_ID: ${details.CHANGE_ID}"
       }
     }
     stage('Checkout branch') {
