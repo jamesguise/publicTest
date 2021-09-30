@@ -68,7 +68,7 @@ pipeline {
         echo "Checked out a PR/branch!"
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
-        
+        gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} run started')
       }
     }
     stage('Build csi-driver') {
