@@ -8,7 +8,6 @@ pipeline {
     TEMP_VAR = 'true'
     
   }
-  echo "CHANGE_ID: ${env.CHANGE_ID}"
   stages {
     stage('Hello') {
       steps {
