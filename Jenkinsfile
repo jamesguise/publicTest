@@ -9,24 +9,24 @@ pipeline {
     d = checkout scm
   }
   stages {
-    stage('Hello') {
+    stage('Check PR Queue') {
       steps {
         echo "branch: ${d.GIT_BRANCH}"
         echo "commit: ${d.GIT_COMMIT}"
         
         //sh("git fetch origin pull/46/head:origin/PR-46")
-        sh "git checkout origin/prTestdummy"
+        //sh "git checkout origin/prTestdummy"
         
         
         //checkout([$class: 'GitSCM', branches: [[name: "'*/main'"]],
           //extensions: [[$class: 'LocalBranch']],
           //userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
-        echo "hello from Jenkinsfile"
+        echo "Check PR Queue . . ."
         // echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
       }
     }
-    stage('Checkout branch') {
+    stage('Checkout PR/branch') {
       steps {
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
@@ -58,7 +58,7 @@ pipeline {
         
         // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
         
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+        checkout([$class: 'GitSCM', branches: [[name: '']],
           extensions: [[$class: 'LocalBranch']],
           userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
@@ -67,13 +67,13 @@ pipeline {
           // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         //checkout scm
-        echo "Checked out!"
+        echo "Checked out a PR/branch!"
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
         
       }
     }
-    stage('Comment') {
+    stage('Build csi-driver') {
       steps {
         script {
           if (env.CHANGE_ID) {
@@ -95,13 +95,15 @@ pipeline {
             //}
             //def date = sh(returnStdout: true, script: "date -u").trim()
             //pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
+            echo 'Build csi-driver . . .'
           }
         }
       }
     }
-    stage('Try a Job') {
+    stage('Run csi-driver tests') {
       steps {
         build job: 'GdummyTest'
+        echo 'Run csi-driver tests . . .'
       }
     }
     stage('Try a MultiJob') {
