@@ -17,9 +17,11 @@ pipeline {
     }
     stage('Checkout branch') {
       steps {
-        git branch: 'main',
-            credentialsId: 'Project1TestPoll-2',
-            url: 'https://github.com/jamesguise/publicTest.git'
+        checkout([$class: 'GitSCM',
+                  branches: [[name: '*/main']],
+                  extensions: [],
+                  userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
+        
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
         echo "CHANGE_ID: ${env.CHANGE_ID}"
