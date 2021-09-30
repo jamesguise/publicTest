@@ -8,11 +8,12 @@ pipeline {
     TEMP_VAR = 'true'
     
   }
+  echo "CHANGE_ID: ${env.CHANGE_ID}"
   stages {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
-        echo "CHANGE_ID: ${env.CHANGE_ID}"
+        echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
       }
     }
     stage('Checkout branch') {
@@ -20,7 +21,7 @@ pipeline {
         checkout([$class: 'GitSCM',
                   branches: [[name: '*/main']],
                   extensions: [],
-                  userRemoteConfigs: [[credentialsId: 'gumby-github-app', url: "https://github.com/jamesguise/publicTest.git"]]])
+                  userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
         
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
