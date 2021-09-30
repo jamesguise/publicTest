@@ -2,12 +2,14 @@ pipeline {
   agent { node { label 'dcs-jenkins_72_host2' } }
   environment {
     TEMP_VAR = 'true'
+    details = checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
+    
   }
   stages {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
-        details = checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
+        
         echo "CHANGE_ID: ${details.CHANGE_ID}"
       }
     }
