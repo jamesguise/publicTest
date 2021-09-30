@@ -12,7 +12,7 @@ pipeline {
     stage('Hello') {
       steps {
         echo "hello from Jenkinsfile"
-        echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
+        // echo "CHANGE_ID: ${env.BITBUCKET_PULL_REQUEST_ID}"
       }
     }
     stage('Checkout branch') {
@@ -21,7 +21,7 @@ pipeline {
                   branches: [[name: '*/main']],
                   extensions: [],
                   userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
+        echo scm.getUserRemoteConfigs()
         // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
         // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
         echo "CHANGE_ID: ${env.CHANGE_ID}"
@@ -45,7 +45,7 @@ pipeline {
         //checkout scm
         echo "Checked out!"
         echo "CHANGE_ID: ${env.CHANGE_ID}"
-        githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
+        // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
         
       }
     }
