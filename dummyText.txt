@@ -1,7 +1,7 @@
 dummyText
-Test polling
+Test polling!!
 test PR!!!
-polling...
+polling...!
 this is a test!
 check!!! test
 try again!!!
