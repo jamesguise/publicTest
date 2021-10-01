@@ -146,18 +146,4 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-      echo "Test run completed"
-    }
-    success {
-      echo "Successfully!"
-    }
-    failure {
-      echo "Failed!"
-    }
-    unstable {
-      echo "The run was marked as unstable!"
-    }
-  }
 }
