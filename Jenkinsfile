@@ -10,13 +10,13 @@ pipeline {
   stages {
     stage('Check PR Queue') {
       steps {
-        withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
+        //withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
           // some block
-          sh '''
-          curl "https://api.github.com/repos/jamesguise/publicTest/statuses/$GIT_COMMIT?access_token=Project1TestPoll-2" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": ${env.JENKINS_URL}/job/${env.JOB_NAME}/$BUILD_NUMBER/console\"}"
+          //sh '''
+          //curl "https://api.github.com/repos/jamesguise/publicTest/statuses/$GIT_COMMIT?access_token=Project1TestPoll-2" \
+          //  -H "Content-Type: application/json" \
+          //  -X POST \
+          //  -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": ${env.JENKINS_URL}/job/${env.JOB_NAME}/$BUILD_NUMBER/console\"}"
           
           
           //curl -H "Content-Type: application/json" \
@@ -30,10 +30,10 @@ pipeline {
           //          "output": {"title": "Check run from Jenkins!", \
           //                     "summary": "This is a check which has been generated from Jenkins as Github App", \
           //                     "text": ". . . and that is awesome"}}' https://api.github.com/repos/<org>/<repo>/check-runs
-          '''
-        }
+          //'''
+        //}
         
-        //sh 'env | sort'
+        sh 'env | sort'
         //echo "branch: ${d.GIT_BRANCH}"
         //echo "commit: ${d.GIT_COMMIT}"
         //sh("git fetch origin pull/46/head:origin/PR-46")
