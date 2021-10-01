@@ -13,17 +13,23 @@ pipeline {
         withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
           // some block
           sh '''
-          curl -H "Content-Type: application/json" \
-               -H "Accept: application/vnd.github.antiope-preview+json" \
-               -H "authorization: Bearer ${Project1TestPoll-2}" \
-               -d '{"name": "check_run", \
-                    "head_sha": "'${GIT_COMMIT}'", \
-                    "status": "in_progress", \
-                    "external_id": "42", \
-                    "started_at": "2020-03-05T11:14:52Z", \
-                    "output": {"title": "Check run from Jenkins!", \
-                               "summary": "This is a check which has been generated from Jenkins as Github App", \
-                               "text": ". . . and that is awesome"}}' https://api.github.com/repos/<org>/<repo>/check-runs
+          curl "https://api.github.com/repos/jamesguise/publicTest/statuses/$GIT_COMMIT?access_token=Project1TestPoll-2" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": ${env.JENKINS_URL}/job/${env.JOB_NAME}/$BUILD_NUMBER/console\"}"
+          
+          
+          //curl -H "Content-Type: application/json" \
+          //     -H "Accept: application/vnd.github.antiope-preview+json" \
+          //     -H "authorization: Bearer ${Project1TestPoll-2}" \
+          //     -d '{"name": "check_run", \
+          //          "head_sha": "'${GIT_COMMIT}'", \
+          //          "status": "in_progress", \
+          //          "external_id": "42", \
+          //          "started_at": "2020-03-05T11:14:52Z", \
+          //          "output": {"title": "Check run from Jenkins!", \
+          //                     "summary": "This is a check which has been generated from Jenkins as Github App", \
+          //                     "text": ". . . and that is awesome"}}' https://api.github.com/repos/<org>/<repo>/check-runs
           '''
         }
         
