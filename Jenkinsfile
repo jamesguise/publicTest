@@ -11,7 +11,8 @@ pipeline {
     stage('Check PR Queue') {
       steps {
         //publishChecks(name: 'Check PR Queue', status: 'in_progress', summary: 'Checking...')
-        gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} Check PR Queue run started')
+        //gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} Check PR Queue run started')
+        publishChecks conclusion: 'NONE', name: 'Jenkins', status: 'IN_PROGRESS', summary: 'Checking PR Queue', text: 'need to see if there is a PR', title: 'Check PR Queue'
 
         //withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
           // some block
