@@ -67,12 +67,13 @@ pipeline {
     }
     stage('Run csi-driver tests') {
       steps {
-        script {
-          def Gdummy = build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: '${env.CHANGE_ID}')]
-          Gresults = Gdummy.getResult()
-          echo "Gresults: ${Gresults}"
+        //script {
+          //def Gdummy = build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: '${env.CHANGE_ID}')]
+        build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: '${env.CHANGE_ID}')]
+          //Gresults = Gdummy.getResult()
+          //echo "Gresults: ${Gresults}"
         //build job: 'GdummyTest', parameters: [gitParameter(name: 'upstreamPR', value: '${env.BRANCH_NAME}')]
-        }
+        //}
         echo 'Run csi-driver tests . . .'
       }
     }
