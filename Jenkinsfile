@@ -11,6 +11,30 @@ pipeline {
     stage('Check PR Queue') {
       steps {
         publishChecks(name: 'Check PR Queue', status: 'in_progress', summary: 'Checking...')
+
+        //withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
+          // some block
+          //sh '''
+          //curl "https://api.github.com/repos/jamesguise/publicTest/statuses/$GIT_COMMIT?access_token=Project1TestPoll-2" \
+          //  -H "Content-Type: application/json" \
+          //  -X POST \
+          //  -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": ${env.JENKINS_URL}/job/${env.JOB_NAME}/$BUILD_NUMBER/console\"}"
+          
+          
+          //curl -H "Content-Type: application/json" \
+          //     -H "Accept: application/vnd.github.antiope-preview+json" \
+          //     -H "authorization: Bearer ${Project1TestPoll-2}" \
+          //     -d '{"name": "check_run", \
+          //          "head_sha": "'${GIT_COMMIT}'", \
+          //          "status": "in_progress", \
+          //          "external_id": "42", \
+          //          "started_at": "2020-03-05T11:14:52Z", \
+          //          "output": {"title": "Check run from Jenkins!", \
+          //                     "summary": "This is a check which has been generated from Jenkins as Github App", \
+          //                     "text": ". . . and that is awesome"}}' https://api.github.com/repos/<org>/<repo>/check-runs
+          //'''
+        //}
+       
         sh 'env | sort'
         //echo "branch: ${d.GIT_BRANCH}"
         //echo "commit: ${d.GIT_COMMIT}"
@@ -40,7 +64,7 @@ pipeline {
     }
     stage('Checkout PR/branch') {
       steps {
-        
+        publishChecks(name: 'Checkout PR', status: 'in_progress', summary: 'Checking out PR...')
         //checkout([$class: 'GitSCM',
           //        branches: [[name: '*/main']],
             //      extensions: [],
@@ -122,20 +146,6 @@ pipeline {
       steps {
         echo "Building PR #${env.CHANGE_ID}"
       }
-    }
-  }
-  post {
-    always {
-      echo "Test run completed"
-    }
-    success {
-      echo "Successfully!"
-    }
-    failure {
-      echo "Failed!"
-    }
-    unstable {
-      echo "The run was marked as unstable!"
     }
   }
 }
