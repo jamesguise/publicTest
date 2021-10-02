@@ -62,10 +62,13 @@ pipeline {
         echo "JENKINS_URL: ${env.JENKINS_URL}"
         echo "JENKINS_HOME: ${env.JENKINS_HOME}"
         echo "JOB_NAME: ${env.JOB_NAME}"
+        
+        publishChecks name: 'Jenkins', summary: 'Checking PR Queue', text: 'need to see if there is a PR', title: 'Check PR Queue'
       }
     }
     stage('Checkout PR/branch') {
       steps {
+        publishChecks conclusion: 'NONE', name: 'Jenkins', status: 'IN_PROGRESS', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
         //publishChecks(name: 'Checkout PR', status: 'in_progress', summary: 'Checking out PR...')
         //checkout([$class: 'GitSCM',
           //        branches: [[name: '*/main']],
@@ -97,6 +100,7 @@ pipeline {
         echo "CHANGE_ID: ${env.CHANGE_ID}"
         // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
         //gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} run started')
+        publishChecks name: 'Jenkins', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
       }
     }
     stage('Build csi-driver') {
