@@ -10,43 +10,9 @@ pipeline {
   stages {
     stage('Check PR Queue') {
       steps {
-        //publishChecks(name: 'Check PR Queue', status: 'in_progress', summary: 'Checking...')
-        //gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} Check PR Queue run started')
         publishChecks conclusion: 'NONE', name: 'Jenkins - Check PR Queue', status: 'IN_PROGRESS', summary: 'Checking PR Queue', text: 'need to see if there is a PR', title: 'Check PR Queue'
 
-        //withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
-          // some block
-          //sh '''
-          //curl "https://api.github.com/repos/jamesguise/publicTest/statuses/$GIT_COMMIT?access_token=Project1TestPoll-2" \
-          //  -H "Content-Type: application/json" \
-          //  -X POST \
-          //  -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": ${env.JENKINS_URL}/job/${env.JOB_NAME}/$BUILD_NUMBER/console\"}"
-          
-          
-          //curl -H "Content-Type: application/json" \
-          //     -H "Accept: application/vnd.github.antiope-preview+json" \
-          //     -H "authorization: Bearer ${Project1TestPoll-2}" \
-          //     -d '{"name": "check_run", \
-          //          "head_sha": "'${GIT_COMMIT}'", \
-          //          "status": "in_progress", \
-          //          "external_id": "42", \
-          //          "started_at": "2020-03-05T11:14:52Z", \
-          //          "output": {"title": "Check run from Jenkins!", \
-          //                     "summary": "This is a check which has been generated from Jenkins as Github App", \
-          //                     "text": ". . . and that is awesome"}}' https://api.github.com/repos/<org>/<repo>/check-runs
-          //'''
-        //}
-       
         sh 'env | sort'
-        //echo "branch: ${d.GIT_BRANCH}"
-        //echo "commit: ${d.GIT_COMMIT}"
-        //sh("git fetch origin pull/46/head:origin/PR-46")
-        //sh "git checkout origin/prTestdummy"
-        
-        //checkout([$class: 'GitSCM', branches: [[name: "'*/main'"]],
-          //extensions: [[$class: 'LocalBranch']],
-          //userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
         echo "Check PR Queue . . ."
         
         echo "CHANGE_ID: ${env.CHANGE_ID}"
@@ -69,37 +35,9 @@ pipeline {
     stage('Checkout PR/branch') {
       steps {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Checkout PR/branch', status: 'IN_PROGRESS', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
-        //publishChecks(name: 'Checkout PR', status: 'in_progress', summary: 'Checking out PR...')
-        //checkout([$class: 'GitSCM',
-          //        branches: [[name: '*/main']],
-            //      extensions: [],
-              //    userRemoteConfigs: [[refspec: "+refs/pull/*:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        // echo scm.getUserRemoteConfigs()
-        // git branch: 'test', credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git'
-        // checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Project1TestPoll-2', url: 'https://github.com/jamesguise/publicTest.git']]])
-        //echo "CHANGE_ID: ${env.CHANGE_ID}"
-        //git fetch origin +refs/pull/*/merge:refs/remotes/origin/pr/*
-        //git fetch origin
         
-        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
-          // extensions: [[$class: 'LocalBranch']],
-          // userRemoteConfigs: [[refspec: "+refs/pull/${params.PR_NUMBER}/head:refs/remotes/origin/PR-${params.PR_NUMBER}", url: "https://${GITHUB_TOKEN}@github.com/${YOUR_REPO}"]]])
-        
-        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
-        
-        //checkout([$class: 'GitSCM', branches: [[name: '*/main']],
-          //extensions: [[$class: 'LocalBranch']],
-          //userRemoteConfigs: [[refspec: "+refs/pull/46/head:refs/remotes/origin/PR-46", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
-        // checkout([$class: 'GitSCM', branches: [[name: "FETCH_HEAD"]],
-          // extensions: [[$class: 'LocalBranch']],
-          // userRemoteConfigs: [[refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*", credentialsId: 'Project1TestPoll-2', url: "https://github.com/jamesguise/publicTest.git"]]])
-        
-        //checkout scm
         echo "Checked out a PR/branch!"
-        echo "CHANGE_ID: ${env.CHANGE_ID}"
-        // githubNotify account: 'jamesguise', context: '', credentialsId: 'Project1TestPoll-2', description: '', gitApiUrl: 'httms://api.github.com', repo: 'publicTest', sha: '37f572c', status: 'PENDING', targetUrl: ''
-        //gitHubPRStatus githubPRMessage('${GITHUB_PR_COND_REF} run started')
+        
         publishChecks name: 'Jenkins - Checkout PR/branch', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
       }
     }
@@ -119,14 +57,7 @@ pipeline {
             echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
             echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
             echo "BUILD_ID: ${env.BUILD_ID}"
-            //echo "Pull Request ID: ${pullRequest.id}"
-            //for (comment in pullRequest.comments) {
-              //if (comment.user == "automation-user") {
-                //pullRequest.deleteComment(comment.id)
-              //}
-            //}
-            //def date = sh(returnStdout: true, script: "date -u").trim()
-            //pullRequest.comment("Build ${env.BUILD_ID} ran at ${date}")
+            
             echo 'Build csi-driver . . .'
             
             publishChecks name: 'Jenkins - Build csi-driver', summary: 'Build csi-driver', text: 'need to build csi-driver', title: 'Build csi-driver'
@@ -136,13 +67,13 @@ pipeline {
     }
     stage('Run csi-driver tests') {
       steps {
-        //build job: 'GdummyTest'
+        build job: 'GdummyTest', parameters: [gitParameter(name: 'upstreamPR', value: '${env.BRANCH_NAME}']
         echo 'Run csi-driver tests . . .'
       }
     }
     stage('Try a MultiJob') {
       steps {
-        //build job: 'MultiJob-Guise-test'
+        build job: 'MultiJob-Guise-test'
         echo "MultiJob done"
       }
     }
@@ -154,7 +85,7 @@ pipeline {
         }
       }
       steps {
-        echo "Building PR #${env.CHANGE_ID}"
+        echo "All of the expressions were met!"
       }
     }
   }
