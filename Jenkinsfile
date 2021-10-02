@@ -10,6 +10,7 @@ pipeline {
   stages {
     stage('Check PR Queue') {
       steps {
+        publishChecks(name: 'Check PR Queue', status: 'in_progress', summary: 'Checking...')
         //withCredentials([gitUsernamePassword(credentialsId: 'Project1TestPoll-2', gitToolName: 'Default')]) {
           // some block
           //sh '''
@@ -62,7 +63,7 @@ pipeline {
     }
     stage('Checkout PR/branch') {
       steps {
-        
+        publishChecks(name: 'Checkout PR', status: 'in_progress', summary: 'Checking out PR...')
         //checkout([$class: 'GitSCM',
           //        branches: [[name: '*/main']],
             //      extensions: [],
