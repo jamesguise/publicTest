@@ -10,6 +10,7 @@ pipeline {
   stages {
     stage('Check PR Queue') {
       steps {
+        publishChecks(name: 'Check PR Queue', status: 'in_progress', summary: 'Checking...')
         sh 'env | sort'
         //echo "branch: ${d.GIT_BRANCH}"
         //echo "commit: ${d.GIT_COMMIT}"
