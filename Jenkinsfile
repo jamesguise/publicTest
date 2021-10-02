@@ -68,7 +68,9 @@ pipeline {
     stage('Run csi-driver tests') {
       steps {
         //build job: 'GdummyTest', parameters: [gitParameter(name: 'upstreamPR', value: '${env.BRANCH_NAME}')]
-        build job: 'GdummyTest', parameters: [string(name: 'upstreamPR', value: '*/origin/${env.BRANCH_NAME}')]
+        Gdummy = build job: 'GdummyTest', parameters: [string(name: 'upstreamPR', value: '*/origin/${env.BRANCH_NAME}')]
+        Gresults = Gdummy.getResult()
+        echo "Gresults: ${Gresults}"
         echo 'Run csi-driver tests . . .'
       }
     }
