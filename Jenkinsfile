@@ -8,90 +8,45 @@ pipeline {
     TEMP_VAR = 'true'
   }
   stages {
-    stage('Check PR Queue') {
+    stage('Jenkins - Stage 1: Checkout PR') {
       steps {
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Check PR Queue', status: 'IN_PROGRESS', summary: 'Checking PR Queue', text: 'need to see if there is a PR', title: 'Check PR Queue'
-
-        sh 'env | sort'
-        echo "Check PR Queue . . ."
-        
-        echo "CHANGE_ID: ${env.CHANGE_ID}"
-        echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
-        echo "CHANGE_URL: ${env.CHANGE_URL}"
-        echo "CHANGE_TITLE: ${env.CHANGE_TITLE}"
-        echo "CHANGE_AUTHOR: ${env.CHANGE_AUTHOR}"
-        echo "BRANCH_NAME: ${env.BRANCH_NAME}"
-        echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
-        echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
-        echo "BUILD_ID: ${env.BUILD_ID}"
-        echo "NODE_NAME: ${env.NODE_NAME}"
-        echo "JENKINS_URL: ${env.JENKINS_URL}"
-        echo "JENKINS_HOME: ${env.JENKINS_HOME}"
-        echo "JOB_NAME: ${env.JOB_NAME}"
-        
-        publishChecks name: 'Jenkins - Check PR Queue', summary: 'Checking PR Queue', text: 'need to see if there is a PR', title: 'Check PR Queue'
-      }
-    }
-    stage('Checkout PR/branch') {
-      steps {
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Checkout PR/branch', status: 'IN_PROGRESS', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'IN_PROGRESS', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
         
         echo "Checked out a PR/branch!"
+        sh 'env | sort'
         
-        publishChecks name: 'Jenkins - Checkout PR/branch', summary: 'Checkout PR/branch', text: 'need to checkout a PR/branch', title: 'Checkout PR/branch'
+        publishChecks name: 'Jenkins - Stage 1: Checkout PR', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
       }
     }
-    stage('Build csi-driver') {
+    stage('Jenkins - Stage 2: Pre-tasks') {
+      steps {
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Pre-tasks', status: 'IN_PROGRESS', summary: 'Checking GO install', text: 'need to see if there is GO installed', title: 'Checking GO install'
+
+        build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
+        
+        publishChecks name: 'Jenkins - Stage 2: Pre-tasks', summary: 'Checking GO install', text: 'need to see if there is GO installed', title: 'Checking GO install'
+      }
+    }
+    stage('Jenkins - Stage 3: Build & test csi-driver') {
       steps {
         script {
-          publishChecks conclusion: 'NONE', name: 'Jenkins - Build csi-driver', status: 'IN_PROGRESS', summary: 'Build csi-driver', text: 'need to build csi-driver', title: 'Build csi-driver'
+          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Build & test csi-driver', status: 'IN_PROGRESS', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
         
-          if (env.CHANGE_ID) {
-            echo 'FOUND A PR!!!'
-            echo "CHANGE_ID: ${env.CHANGE_ID}"
-            echo "CHANGE_TARGET: ${env.CHANGE_TARGET}"
-            echo "CHANGE_URL: ${env.CHANGE_URL}"
-            echo "CHANGE_TITLE: ${env.CHANGE_TITLE}"
-            echo "CHANGE_AUTHOR: ${env.CHANGE_AUTHOR}"
-            echo "BRANCH_NAME: ${env.BRANCH_NAME}"
-            echo "CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
-            echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
-            echo "BUILD_ID: ${env.BUILD_ID}"
-            
-            echo 'Build csi-driver . . .'
-            
-            publishChecks name: 'Jenkins - Build csi-driver', summary: 'Build csi-driver', text: 'need to build csi-driver', title: 'Build csi-driver'
-          }
+          build job: 'job-k8s-v.1.18'
+          
+          publishChecks name: 'Jenkins - Stage 3: Build & test csi-driver', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
+          
         }
       }
     }
-    stage('Run csi-driver tests') {
+    stage('Jenkins - Stage 4: Clear & send results') {
       steps {
-        //script {
-          //def Gdummy = build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: '${env.CHANGE_ID}')]
-        build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
-          //Gresults = Gdummy.getResult()
-          //echo "Gresults: ${Gresults}"
-        //build job: 'GdummyTest', parameters: [gitParameter(name: 'upstreamPR', value: '${env.BRANCH_NAME}')]
-        //}
-        echo 'Run csi-driver tests . . .'
-      }
-    }
-    stage('Try a MultiJob') {
-      steps {
-        build job: 'MultiJob-Guise-test'
-        echo "MultiJob done"
-      }
-    }
-    stage('Get PR info') {
-      when {
-        allOf {
-          expression { env.CHANGE_ID != null }
-          expression { env.CHANGE_TARGET != null }
-        }
-      }
-      steps {
-        echo "All of the expressions were met!"
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 4: Clear & send results', status: 'IN_PROGRESS', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        
+        echo "Clearing build & sending results . . ."
+        
+        publishChecks name: 'Jenkins - Stage 4: Clear & send results', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        
       }
     }
   }
