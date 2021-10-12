@@ -32,6 +32,8 @@ pipeline {
         script {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
+          build job: 'job-guise-csi-test'
+          echo "Completed job-guise-csi-test . . ."
           build job: 'job-k8s-v.1.18'
           
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
