@@ -18,23 +18,23 @@ pipeline {
         publishChecks name: 'Jenkins - Stage 1: Checkout PR', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
       }
     }
-    stage('Jenkins - Stage 2: Pre-tasks') {
+    stage('Jenkins - Stage 2: Build csi-driver') {
       steps {
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Pre-tasks', status: 'IN_PROGRESS', summary: 'Checking GO install', text: 'need to see if there is GO installed', title: 'Checking GO install'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
 
         build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         
-        publishChecks name: 'Jenkins - Stage 2: Pre-tasks', summary: 'Checking GO install', text: 'need to see if there is GO installed', title: 'Checking GO install'
+        publishChecks name: 'Jenkins - Stage 2: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
       }
     }
-    stage('Jenkins - Stage 3: Build & test csi-driver') {
+    stage('Jenkins - Stage 3: Test csi-driver') {
       steps {
         script {
-          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Build & test csi-driver', status: 'IN_PROGRESS', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
+          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
           build job: 'job-k8s-v.1.18'
           
-          publishChecks name: 'Jenkins - Stage 3: Build & test csi-driver', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
+          publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
           
         }
       }
