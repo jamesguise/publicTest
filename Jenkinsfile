@@ -40,7 +40,8 @@ pipeline {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
 
         echo "Building csi-driver . . ."
-        build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
+        //build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
+        build job: 'job-build2', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
         publishChecks name: 'Jenkins - Stage 2: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
@@ -52,9 +53,10 @@ pipeline {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
           echo "Testing csi-driver . . ."
-          build job: 'job-guise-csi-test'
-          echo "Completed job-guise-csi-test . . ."
-          build job: 'job-k8s-v.1.18'
+          //build job: 'job-guise-csi-test'
+          build job: 'job-test3'
+          //echo "Completed job-guise-csi-test . . ."
+          //build job: 'job-k8s-v.1.18'
           echo "Tested csi-driver!"
           
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
