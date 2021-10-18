@@ -15,7 +15,8 @@ pipeline {
         slackSend channel: '#jenkins-intern-project1', color: "#17c40e", message: """${env.BUILD_TAG}: Successfully ran all tests!
         Ready to be approved and merged to Master branch!
         Waiting to be reviewed . . .
-        You can view the Jenkins pipeline outlook: ${env.RUN_DISPLAY_URL}
+        You can view the Jenkins Job Pipeline: ${env.JOB_URL}
+        You can view the Jenkins Blue Ocean Pipeline: ${env.RUN_DISPLAY_URL}
         You can view the PR on GitHub: ${env.CHANGE_URL}""", teamDomain: 'hpe-internal'
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'QUEUED', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
