@@ -12,7 +12,7 @@ pipeline {
       steps {
         
         
-        slackSend channel: '#jenkins-intern-project1', color: "#439FE0", message: """${env.BUILD_TAG}: Successfully ran all tests!
+        slackSend channel: '#jenkins-intern-project1', color: "#17c40e", message: """${env.BUILD_TAG}: Successfully ran all tests!
         Ready to be approved and merged to Master branch!
         Waiting to be reviewed . . .
         You can view the pipeline outlook: ${env.RUN_DISPLAY_URL}""", teamDomain: 'hpe-internal'
