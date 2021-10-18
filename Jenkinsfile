@@ -11,7 +11,7 @@ pipeline {
     stage('Jenkins - Stage 1: Checkout PR') {
       steps {
         
-        slackSend channel: '#jenkins-intern-project1', message: '${env.BUILD_TAG}: Successfully ran all tests! Ready to be approved and merged to Master branch! You can view the pipeline outlook: ${env.RUN_DISPLAY_URL}', teamDomain: 'hpe-internal'
+        slackSend channel: '#jenkins-intern-project1', message: '"${env.BUILD_TAG}": Successfully ran all tests! Ready to be approved and merged to Master branch! You can view the pipeline outlook: "${env.RUN_DISPLAY_URL}"', teamDomain: 'hpe-internal'
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'QUEUED', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
