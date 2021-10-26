@@ -16,8 +16,9 @@ pipeline {
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'QUEUED', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 4: Clear & send results', status: 'QUEUED', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test-1 csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 4: Test-2 csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 5: Clear & send results', status: 'QUEUED', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
         
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'IN_PROGRESS', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
@@ -42,10 +43,10 @@ pipeline {
         publishChecks name: 'Jenkins - Stage 2: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
       }
     }
-    stage('Jenkins - Stage 3: Test csi-driver') {
+    stage('Jenkins - Stage 3: Test-1 csi-driver') {
       steps {
         script {
-          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test-1 csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
           echo "Testing csi-driver . . ."
           //build job: 'job-guise-csi-test'
@@ -54,14 +55,28 @@ pipeline {
           //build job: 'job-k8s-v.1.18'
           echo "Tested csi-driver!"
           
-          publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+          publishChecks name: 'Jenkins - Stage 3: Test-1 csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
           
         }
       }
     }
-    stage('Jenkins - Stage 4: Clear & send results') {
+    stage('Jenkins - Stage 4: Test-2 csi-driver') {
       steps {
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 4: Clear & send results', status: 'IN_PROGRESS', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        script {
+          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 4: Test-2 csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+        
+          echo "Testing csi-driver . . ."
+          build job: 'job-ext-test'
+          echo "Tested csi-driver!"
+          
+          publishChecks name: 'Jenkins - Stage 4: Test-2 csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+          
+        }
+      }
+    }
+    stage('Jenkins - Stage 5: Clear & send results') {
+      steps {
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 5: Clear & send results', status: 'IN_PROGRESS', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
         
         echo "Clearing build & sending results . . ."
         
@@ -73,7 +88,7 @@ pipeline {
         You can view the PR on GitHub: ${env.CHANGE_URL}""", teamDomain: 'hpe-internal'
         
         
-        publishChecks name: 'Jenkins - Stage 4: Clear & send results', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        publishChecks name: 'Jenkins - Stage 5: Clear & send results', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
         
       }
     }
