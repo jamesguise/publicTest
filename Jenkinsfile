@@ -10,6 +10,7 @@ pipeline {
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
       steps {
+        echo "TEMP_NUM=${TEMP_NUM}"
         
         //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'QUEUED', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
@@ -39,6 +40,7 @@ pipeline {
         //build job: 'job-build-test', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
+        
         publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
       }
     }
@@ -55,6 +57,8 @@ pipeline {
           //build job: 'job-k8s-v.1.18'
           echo "Built k8s files!"
           
+          echo "TEMP_NUM=${TEMP_NUM}"
+          
           publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
           
         }
@@ -66,7 +70,7 @@ pipeline {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
           echo "Testing csi-driver . . ."
-          build job: 'job-ext-test', parameters: [string(name: 'CSI_BUILD_NUMBER', value: "${TEMP_NUM}")]
+          //build job: 'job-ext-test', parameters: [string(name: 'CSI_BUILD_NUMBER', value: "${TEMP_NUM}")]
           ////build job: 'job-ext-test3'
           echo "Tested csi-driver!"
 
