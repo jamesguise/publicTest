@@ -8,14 +8,14 @@ pipeline {
     TEMP_VAR = 'true'
   }
   stages {
-    //stage('Jenkins - Stage 1: Checkout PR') {
-      //steps {
+    stage('Jenkins - Stage 0: Pre-Setup') {
+      steps {
         
         //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'QUEUED', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
-    publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
-    publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
-    publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
-    //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 5: Clear & send results', status: 'QUEUED', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
+        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+        //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 5: Clear & send results', status: 'QUEUED', summary: 'Clear & send results', text: 'need to clear & send results', title: 'Clear & send results'
 
         
         //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'IN_PROGRESS', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
@@ -26,8 +26,8 @@ pipeline {
         //echo "Checked out a PR/branch!"
         
         //publishChecks name: 'Jenkins - Stage 1: Checkout PR', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
-      //}
-    //}
+      }
+    }
     stage('Jenkins - Stage 1: Build csi-driver') {
       steps {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
@@ -67,7 +67,7 @@ pipeline {
         
           echo "Testing csi-driver . . ."
           build job: 'job-ext-test'
-          //build job: 'job-ext-test3'
+          ////build job: 'job-ext-test3'
           echo "Tested csi-driver!"
 
           
