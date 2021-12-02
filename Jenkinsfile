@@ -21,7 +21,7 @@ pipeline {
         
         //publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Checkout PR', status: 'IN_PROGRESS', summary: 'Checkout PR', text: 'need to checkout a PR', title: 'Checkout PR'
         
-        //sh 'env | sort'
+        sh 'env | sort'
         //echo "Checking out a PR/branch . . ."
         //build job: 'job-checkout2', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         //echo "Checked out a PR/branch!"
@@ -40,6 +40,8 @@ pipeline {
         //build job: 'job-build-test', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
+        sh 'env | sort'
+        
         
         publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
       }
@@ -52,7 +54,7 @@ pipeline {
           echo "Building k8s files . . ."
           //build job: 'job-guise-csi-test'
           //build job: 'job-test3'
-          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}"), string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
+          //build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}"), string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
           //echo "Completed job-guise-csi-test . . ."
           //build job: 'job-k8s-v.1.18'
           echo "Built k8s files!"
