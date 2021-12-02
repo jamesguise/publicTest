@@ -40,7 +40,7 @@ pipeline {
         //build job: 'job-build-test', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
-        sh 'env | sort'
+        //sh 'env | sort'
         
         
         publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
@@ -54,12 +54,12 @@ pipeline {
           echo "Building k8s files . . ."
           //build job: 'job-guise-csi-test'
           //build job: 'job-test3'
-          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}"), string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
+          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
           //echo "Completed job-guise-csi-test . . ."
           //build job: 'job-k8s-v.1.18'
           echo "Built k8s files!"
           
-          echo "TEMP_NUM=${TEMP_NUM}"
+          //echo "TEMP_NUM=${TEMP_NUM}"
           
           publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
           
@@ -73,7 +73,7 @@ pipeline {
         
           echo "Testing csi-driver . . ."
           //build job: 'job-ext-test', parameters: [string(name: 'CSI_BUILD_NUMBER', value: "${TEMP_NUM}")]
-          ////build job: 'job-ext-test3'
+          build job: 'job-ext-test'
           echo "Tested csi-driver!"
 
           
