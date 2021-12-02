@@ -50,7 +50,7 @@ pipeline {
           echo "Building k8s files . . ."
           //build job: 'job-guise-csi-test'
           //build job: 'job-test3'
-          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")],parameters: [string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
+          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}"), string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
           //echo "Completed job-guise-csi-test . . ."
           //build job: 'job-k8s-v.1.18'
           echo "Built k8s files!"
