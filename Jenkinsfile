@@ -35,7 +35,7 @@ pipeline {
         echo "Building csi-driver . . ."
         //build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         //build job: 'job-build2', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
-        build job: 'job-build3', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
+        build job: 'job-build3'
         //build job: 'job-build-test', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
