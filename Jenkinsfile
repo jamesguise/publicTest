@@ -5,7 +5,7 @@ pipeline {
     } 
   }
   environment {
-    TEMP_VAR = 'true'
+    TEMP_NUM = 5
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
@@ -35,7 +35,7 @@ pipeline {
         echo "Building csi-driver . . ."
         //build job: 'GdummyTest', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         //build job: 'job-build2', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
-        build job: 'job-build3'
+        build job: 'job-build3', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         //build job: 'job-build-test', parameters: [string(name: 'upstreamChangeID', value: "${env.CHANGE_ID}")]
         echo "Built csi-driver!"
         
@@ -50,7 +50,7 @@ pipeline {
           echo "Building k8s files . . ."
           //build job: 'job-guise-csi-test'
           //build job: 'job-test3'
-          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
+          build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")],parameters: [string(name: 'PR_BUILD_NUMBER', value: "${TEMP_NUM}")]
           //echo "Completed job-guise-csi-test . . ."
           //build job: 'job-k8s-v.1.18'
           echo "Built k8s files!"
@@ -66,7 +66,7 @@ pipeline {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         
           echo "Testing csi-driver . . ."
-          build job: 'job-ext-test'
+          build job: 'job-ext-test', parameters: [string(name: 'CSI_BUILD_NUMBER', value: "${TEMP_NUM}")]
           ////build job: 'job-ext-test3'
           echo "Tested csi-driver!"
 
