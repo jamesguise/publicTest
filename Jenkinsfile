@@ -67,7 +67,7 @@ pipeline {
         
           echo "Testing csi-driver . . ."
           build job: 'job-ext-test'
-          //build job: 'job-ext-test3'
+          ////build job: 'job-ext-test3'
           echo "Tested csi-driver!"
 
           
