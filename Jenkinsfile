@@ -23,7 +23,7 @@ pipeline {
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
           //echo "class=${TEMP_CHANGED.getClass()}"
-          if (TEMP_CHANGED.contains("Jenkinsfile") || TEMP_CHANGED.contains(".md")) || TEMP_CHANGED.contains(".txt")){
+          if (TEMP_CHANGED.contains("Jenkinsfile") | TEMP_CHANGED.contains(".md")) | TEMP_CHANGED.contains(".txt")){
             echo "Unimportant files changed, don't run tests!"
           } else {
             echo "Important files changed, run tests!"
