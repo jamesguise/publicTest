@@ -22,8 +22,8 @@ pipeline {
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
-          echo "class=${TEMP_CHANGED.getClass()}"
-          if (TEMP_CHANGED.equals("Jenkinsfile")){
+          //echo "class=${TEMP_CHANGED.getClass()}"
+          if (TEMP_CHANGED.contains("Jenkinsfile")){
             echo "Yes, Jenkinsfile was edited!"
           } else {
             echo "No, Jenkinsfile was not edited!"
