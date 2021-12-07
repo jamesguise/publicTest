@@ -22,7 +22,11 @@ pipeline {
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
-          
+          if (${TEMP_CHANGED} == 'Jenkinsfile'){
+            echo "Yes, Jenkinsfile was edited!"
+          } else {
+            echo "No, Jenkinsfile was not edited!"
+          }
         }
         echo "TEMP_CHANGED2=${TEMP_CHANGED}"
         
