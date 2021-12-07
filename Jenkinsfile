@@ -14,7 +14,8 @@ pipeline {
       steps {
         echo "TEMP_NUM=${TEMP_NUM}"
         
-        TEMP_CHANGED=$(sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}')
+        //TEMP_CHANGED=$(sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}')
+        sh 'TEMP_CHANGED=git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}'
         echo "TEMP_CHANGED=${TEMP_CHANGED}"
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
