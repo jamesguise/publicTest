@@ -9,10 +9,13 @@ pipeline {
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
+      
+      git diff --name-only ${GIT_COMMIT}
+      
       steps {
         echo "TEMP_NUM=${TEMP_NUM}"
         
-        git diff --name-only ${GIT_COMMIT}
+        
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
