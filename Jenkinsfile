@@ -18,7 +18,7 @@ pipeline {
         //sh 'git diff --name-only HEAD~ HEAD'
         script {
           TEMP_CHANGED = sh (
-            script: 'git diff --name-only HEAD~ HEAD',
+            script: 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}',
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
