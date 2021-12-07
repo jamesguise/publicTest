@@ -22,6 +22,7 @@ pipeline {
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
+          TEMP_CHANGED.getClass()
           if (TEMP_CHANGED.equals("Jenkinsfile")){
             echo "Yes, Jenkinsfile was edited!"
           } else {
@@ -30,6 +31,7 @@ pipeline {
         }
         
         echo "TEMP_CHANGED2=${TEMP_CHANGED}"
+        
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
