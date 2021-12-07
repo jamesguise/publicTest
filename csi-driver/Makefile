@@ -5,7 +5,7 @@ endif
 
 TAG = edge
 
-# unless a BUILD_NUMBER is specified
+# unless a BUILD_NUMBER is specified.
 ifeq ($(IGNORE_BUILD_NUMBER),true)
 	VERSION = $(TAG)
 else

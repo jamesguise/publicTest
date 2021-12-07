@@ -6,11 +6,29 @@ pipeline {
   }
   environment {
     TEMP_NUM = 5
+    //TEMP_CHANGED = "${(sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}')}"
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
+      
       steps {
         echo "TEMP_NUM=${TEMP_NUM}"
+        
+        //sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}'
+        //sh 'git diff --name-only HEAD~ HEAD'
+        script {
+          TEMP_CHANGED = sh (
+            script: 'git diff --name-only HEAD~ HEAD',
+            returnStdout: true
+          ).trim()
+          echo "TEMP_CHANGED=${TEMP_CHANGED}"
+          if (TEMP_CHANGED.equals("Jenkinsfile")){
+            echo "Yes, Jenkinsfile was edited!"
+          } else {
+            echo "No, Jenkinsfile was not edited!"
+          }
+        }
+        echo "TEMP_CHANGED2=${TEMP_CHANGED}"
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
