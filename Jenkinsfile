@@ -6,9 +6,7 @@ pipeline {
   }
   environment {
     TEMP_NUM = 5
-    TEMP_CHANGED = """${sh(
-      script: 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}'
-    )}"""
+    TEMP_CHANGED = "${sh(script: 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}')}"
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
