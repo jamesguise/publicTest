@@ -22,7 +22,7 @@ pipeline {
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
-          TEMP_CHANGED.getClass()
+          echo "class=${TEMP_CHANGED.getClass()}"
           if (TEMP_CHANGED.equals("Jenkinsfile")){
             echo "Yes, Jenkinsfile was edited!"
           } else {
