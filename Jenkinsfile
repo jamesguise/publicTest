@@ -25,6 +25,7 @@ pipeline {
           //echo "class=${TEMP_CHANGED.getClass()}"
           if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".md")) || (TEMP_CHANGED.contains(".txt"))){
             echo "Unimportant files changed, don't run tests!"
+            TEMP_NUM=1
           } else {
             echo "Important files changed, run tests!"
           }
