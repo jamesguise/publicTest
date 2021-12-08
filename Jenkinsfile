@@ -42,9 +42,13 @@ pipeline {
             returnStdout: true
           ).trim()
           TEMP_CHANGED6 = sh (
-            script: 'git --no-pager diff origin/main --name-only',
+            script: 'git --no-pager diff origin/${CHANGE_TARGET} --name-only',
             returnStdout: true
           ).split('\n')
+          //TEMP_CHANGED7 = sh (
+            //script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD {BRANCH_NAME})',
+            //returnStdout: true
+          //).split('\n')
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
           echo "TEMP_CHANGED1=${TEMP_CHANGED1}"
           echo "TEMP_CHANGED2=${TEMP_CHANGED2}"
