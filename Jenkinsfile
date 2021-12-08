@@ -14,51 +14,15 @@ pipeline {
       steps {
         echo "TEMP_NUM=${TEMP_NUM}"
         
-        //sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}'
-        //sh 'git diff --name-only HEAD~ HEAD'
         script {
+          
           TEMP_CHANGED = sh (
-            script: 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED1 = sh (
-            script: 'git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_COMMIT}',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED2 = sh (
-            script: 'git diff --name-only ${GIT_COMMIT} HEAD',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED3 = sh (
-            script: 'git diff --name-only HEAD~ HEAD',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED4 = sh (
-            script: 'git diff --name-only ORIG_HEAD HEAD',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED5 = sh (
-            script: 'git diff --name-only HEAD@{0} HEAD@{1}',
-            returnStdout: true
-          ).trim()
-          TEMP_CHANGED6 = sh (
             script: 'git --no-pager diff origin/${CHANGE_TARGET} --name-only',
             returnStdout: true
           ).split('\n')
           
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
-          echo "TEMP_CHANGED1=${TEMP_CHANGED1}"
-          echo "TEMP_CHANGED2=${TEMP_CHANGED2}"
-          echo "TEMP_CHANGED3=${TEMP_CHANGED3}"
-          echo "TEMP_CHANGED4=${TEMP_CHANGED4}"
-          echo "TEMP_CHANGED5=${TEMP_CHANGED5}"
-          echo "TEMP_CHANGED6=${TEMP_CHANGED6}"
-          TEMP_CHANGED7 = sh (
-            script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD ${BRANCH_NAME})',
-            returnStdout: true
-          ).trim()
-          echo "TEMP_CHANGED7=${TEMP_CHANGED7}"
-          //echo "class=${TEMP_CHANGED.getClass()}"
+          
           if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".md")) || (TEMP_CHANGED.contains(".txt"))){
             echo "Unimportant files changed, don't run tests!"
             TEMP_NUM=1
