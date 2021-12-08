@@ -6,14 +6,10 @@ pipeline {
   }
   environment {
     TEMP_NUM = 5
-    //TEMP_CHANGED = "${(sh 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}')}"
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
-      
       steps {
-        echo "TEMP_NUM=${TEMP_NUM}"
-        
         script {
           
           TEMP_CHANGED = sh (
@@ -38,7 +34,6 @@ pipeline {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         sh 'env | sort'
       
-        
       }
     }
     
@@ -55,7 +50,6 @@ pipeline {
             echo "No important files were changed, skipping stage!"
           }
         }
-        echo "Done with Stage 1"
 
         publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
       }
