@@ -42,7 +42,7 @@ pipeline {
             returnStdout: true
           ).trim()
           TEMP_CHANGED6 = sh (
-            script: 'git --no-pager diff origin/${params.target} --name-only',
+            script: 'git --no-pager diff origin/main --name-only',
             returnStdout: true
           ).split('\n')
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
