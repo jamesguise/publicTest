@@ -54,7 +54,7 @@ pipeline {
           echo "TEMP_CHANGED5=${TEMP_CHANGED5}"
           echo "TEMP_CHANGED6=${TEMP_CHANGED6}"
           TEMP_CHANGED7 = sh (
-            script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD {BRANCH_NAME})',
+            script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD ${BRANCH_NAME})',
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED7=${TEMP_CHANGED7}"
