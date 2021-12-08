@@ -36,6 +36,7 @@ pipeline {
           }
         }
         
+        
         //echo "TEMP_CHANGED2=${TEMP_CHANGED}"
         
         
