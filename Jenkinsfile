@@ -49,7 +49,7 @@ pipeline {
         script{
           if (TEMP_NUM.equals(1)){
             echo "Building csi-driver . . ."
-            //build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
+            build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Built csi-driver!"
           } else {
             echo "No important files were changed, skipping stage!"
@@ -67,7 +67,7 @@ pipeline {
 
           if (TEMP_NUM.equals(1)){
             echo "Building k8s files . . ."
-            //build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
+            build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Built k8s files!"
           } else {
             echo "No important files were changed, skipping stage!"
@@ -85,12 +85,11 @@ pipeline {
 
           if (TEMP_NUM.equals(1)){
             echo "Testing csi-driver . . ."
-            //build job: 'job-ext-test'
+            build job: 'job-ext-test'
             echo "Tested csi-driver!"
           } else {
             echo "No important files were changed, skipping stage!"
           }
-
 
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
 
@@ -105,7 +104,5 @@ pipeline {
 
       }
     }
-    
-    // above ends if statement
   }
 }
