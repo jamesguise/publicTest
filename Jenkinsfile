@@ -21,6 +21,10 @@ pipeline {
             script: 'git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT}',
             returnStdout: true
           ).trim()
+          TEMP_CHANGED1 = sh (
+            script: 'git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_COMMIT}',
+            returnStdout: true
+          ).trim()
           TEMP_CHANGED2 = sh (
             script: 'git diff --name-only ${GIT_COMMIT} HEAD',
             returnStdout: true
@@ -30,13 +34,19 @@ pipeline {
             returnStdout: true
           ).trim()
           TEMP_CHANGED4 = sh (
-            script: 'git diff --name-only HEAD^${GIT_COMMIT}',
+            script: 'git diff --name-only ORIG_HEAD HEAD',
+            returnStdout: true
+          ).trim()
+          TEMP_CHANGED5 = sh (
+            script: 'git diff --name-only HEAD@{0} HEAD@{1}',
             returnStdout: true
           ).trim()
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
+          echo "TEMP_CHANGED1=${TEMP_CHANGED1}"
           echo "TEMP_CHANGED2=${TEMP_CHANGED2}"
-          echo "TEMP_CHANGED2=${TEMP_CHANGED3}"
-          echo "TEMP_CHANGED2=${TEMP_CHANGED4}"
+          echo "TEMP_CHANGED3=${TEMP_CHANGED3}"
+          echo "TEMP_CHANGED4=${TEMP_CHANGED4}"
+          echo "TEMP_CHANGED5=${TEMP_CHANGED5}"
           //echo "class=${TEMP_CHANGED.getClass()}"
           if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".md")) || (TEMP_CHANGED.contains(".txt"))){
             echo "Unimportant files changed, don't run tests!"
