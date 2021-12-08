@@ -9,7 +9,9 @@ pipeline {
   }
   stages {
     stage('Jenkins - Stage 0: Pre-Setup') {
+      
       steps {
+        
         script {
           
           TEMP_CHANGED = sh (
@@ -33,11 +35,14 @@ pipeline {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
         sh 'env | sort'
+        
       }
     }
     
     stage('Jenkins - Stage 1: Build csi-driver') {
+      
       steps {
+        
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
 
         script{
@@ -51,10 +56,13 @@ pipeline {
         }
 
         publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
+      
       }
     }
     stage('Jenkins - Stage 2: Build k8s files') {
+      
       steps {
+        
         script {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'IN_PROGRESS', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
 
@@ -72,7 +80,9 @@ pipeline {
       }
     }
     stage('Jenkins - Stage 3: Test csi-driver') {
+      
       steps {
+        
         script {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
 
