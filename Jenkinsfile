@@ -93,7 +93,6 @@ pipeline {
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
 
         }
-
         slackSend channel: '#jenkins-intern-project1', color: "#17c40e", message: """${env.BUILD_TAG}: Successfully ran all tests!
         Ready to be approved and merged to Master branch!
         Waiting to be reviewed . . .
