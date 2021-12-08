@@ -46,10 +46,12 @@ pipeline {
       steps {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
 
-        if (TEMP_NUM.equals(1)){
-          echo "Building csi-driver . . ."
-          //build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
-          echo "Built csi-driver!"
+        script{
+          if (TEMP_NUM.equals(1)){
+            echo "Building csi-driver . . ."
+            //build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
+            echo "Built csi-driver!"
+          }
         }
         echo "Done with Stage 1"
 
