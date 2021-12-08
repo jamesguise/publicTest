@@ -23,17 +23,15 @@ pipeline {
           
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
           
-          if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".md")) || (TEMP_CHANGED.contains(".txt"))){
-            echo "Unimportant files changed, don't run tests!"
+          if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".go")) || (TEMP_CHANGED.contains(".sh")) || (TEMP_CHANGED.contains(".repo")) || (TEMP_CHANGED.contains(".service")) || 
+              (TEMP_CHANGED.contains("Dockerfile")) || (TEMP_CHANGED.contains(".yaml")) || (TEMP_CHANGED.contains("Makefile")) || (TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains("COPYING")) || 
+              (TEMP_CHANGED.contains("COMPATIBLE")) || (TEMP_CHANGED.contains(".proto")) || (TEMP_CHANGED.contains(".mod")) || (TEMP_CHANGED.contains(".sum"))){
+            echo "Important files were changed, run tests!"
             TEMP_NUM=1
           } else {
-            echo "Important files changed, run tests!"
+            echo "No important files were changed, no need to run tests!"
           }
         }
-        
-        
-        //echo "TEMP_CHANGED2=${TEMP_CHANGED}"
-        
         
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
@@ -49,11 +47,13 @@ pipeline {
         publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
 
         script{
-          //if (TEMP_NUM.equals(1)){
-          echo "Building csi-driver . . ."
-          //build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
-          echo "Built csi-driver!"
-          //}
+          if (TEMP_NUM.equals(1)){
+            echo "Building csi-driver . . ."
+            //build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
+            echo "Built csi-driver!"
+          } else {
+            echo "No important files were changed, skipping stage!"
+          }
         }
         echo "Done with Stage 1"
 
@@ -65,9 +65,13 @@ pipeline {
         script {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'IN_PROGRESS', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
 
-          echo "Building k8s files . . ."
-          //build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
-          echo "Built k8s files!"
+          if (TEMP_NUM.equals(1)){
+            echo "Building k8s files . . ."
+            //build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
+            echo "Built k8s files!"
+          } else {
+            echo "No important files were changed, skipping stage!"
+          }
 
           publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
 
@@ -79,9 +83,13 @@ pipeline {
         script {
           publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
 
-          echo "Testing csi-driver . . ."
-          //build job: 'job-ext-test'
-          echo "Tested csi-driver!"
+          if (TEMP_NUM.equals(1)){
+            echo "Testing csi-driver . . ."
+            //build job: 'job-ext-test'
+            echo "Tested csi-driver!"
+          } else {
+            echo "No important files were changed, skipping stage!"
+          }
 
 
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
