@@ -45,10 +45,7 @@ pipeline {
             script: 'git --no-pager diff origin/${CHANGE_TARGET} --name-only',
             returnStdout: true
           ).split('\n')
-          //TEMP_CHANGED7 = sh (
-            //script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD {BRANCH_NAME})',
-            //returnStdout: true
-          //).split('\n')
+          
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
           echo "TEMP_CHANGED1=${TEMP_CHANGED1}"
           echo "TEMP_CHANGED2=${TEMP_CHANGED2}"
@@ -56,6 +53,11 @@ pipeline {
           echo "TEMP_CHANGED4=${TEMP_CHANGED4}"
           echo "TEMP_CHANGED5=${TEMP_CHANGED5}"
           echo "TEMP_CHANGED6=${TEMP_CHANGED6}"
+          TEMP_CHANGED7 = sh (
+            script: 'git diff --name-only --diff-filter=b $(git merge-base HEAD {BRANCH_NAME})',
+            returnStdout: true
+          ).trim()
+          echo "TEMP_CHANGED7=${TEMP_CHANGED7}"
           //echo "class=${TEMP_CHANGED.getClass()}"
           if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".md")) || (TEMP_CHANGED.contains(".txt"))){
             echo "Unimportant files changed, don't run tests!"
