@@ -74,7 +74,6 @@ pipeline {
           }
 
           publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
-
         }
       }
     }
