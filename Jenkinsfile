@@ -49,7 +49,7 @@ pipeline {
             build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Built csi-driver!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
         }
 
@@ -69,7 +69,7 @@ pipeline {
             build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Built k8s files!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
 
           publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
@@ -89,7 +89,7 @@ pipeline {
             build job: 'job-ext-test'
             echo "Tested csi-driver!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
 
           publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
