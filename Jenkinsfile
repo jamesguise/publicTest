@@ -46,7 +46,7 @@ pipeline {
         script{
           if (TEMP_NUM.equals(1)){
             echo "Creating csi-driver image . . ."
-            build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
+            build job: 'create-csi-driver-image', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Created csi-driver image!"
           } else {
             echo "Build not required, files changed do not affect tests!"
@@ -66,7 +66,7 @@ pipeline {
 
           if (TEMP_NUM.equals(1)){
             echo "Creating k8s files . . ."
-            build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
+            build job: 'create-k8s-files', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
             echo "Created k8s files!"
           } else {
             echo "Build not required, files changed do not affect tests!"
@@ -86,7 +86,7 @@ pipeline {
 
           if (TEMP_NUM.equals(1)){
             echo "Build & test csi-driver . . ."
-            build job: 'job-ext-test'
+            build job: 'build-test-csi-driver'
             echo "Built & tested csi-driver!"
           } else {
             echo "Build not required, files changed do not affect tests!"
