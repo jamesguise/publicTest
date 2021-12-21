@@ -29,7 +29,7 @@ pipeline {
           }
         }
         
-        publishChecks conclusion: 'NONE', name: '(1/4): Clean arrays', status: 'QUEUED', summary: 'Clean arrays', text: 'need to clean arrays', title: 'Clean arrays'
+        publishChecks conclusion: 'NONE', name: '(1/4): Clean/restart arrays', status: 'QUEUED', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
         publishChecks conclusion: 'NONE', name: '(2/4): Create csi-driver image', status: 'QUEUED', summary: 'Create csi-driver image', text: 'need to create the csi-driver image', title: 'Create csi-driver image'
         publishChecks conclusion: 'NONE', name: '(3/4): Create k8s files', status: 'QUEUED', summary: 'Create k8s files', text: 'need to create k8s files', title: 'Create k8s files'
         publishChecks conclusion: 'NONE', name: '(4/4): Build & test csi-driver', status: 'QUEUED', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
@@ -41,19 +41,19 @@ pipeline {
       
       steps {
         
-        publishChecks conclusion: 'NONE', name: '(1/4): Clean arrays', status: 'IN_PROGRESS', summary: 'Clean arrays', text: 'need to clean arrays', title: 'Clean arrays'
+        publishChecks conclusion: 'NONE', name: '(1/4): Clean/restart arrays', status: 'IN_PROGRESS', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
 
         script{
           if (TEMP_NUM.equals(1)){
-            echo "Cleaning arrays . . ."
-            //build job: 'create-csi-driver-image', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
-            echo "Cleaned arrays!"
+            echo "Cleaning/restarting arrays . . ."
+            build job: 'clean-arrays'
+            echo "Cleaned/restarted arrays!"
           } else {
             echo "Build not required, files changed do not affect tests!"
           }
         }
 
-        publishChecks name: '(1/4): Clean arrays', summary: 'Clean arrays', text: 'need to clean arrays', title: 'Clean arrays'
+        publishChecks name: '(1/4): Clean/restart arrays', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
       
       }
     }
