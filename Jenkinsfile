@@ -8,7 +8,7 @@ pipeline {
     TEMP_NUM = 5
   }
   stages {
-    stage('Jenkins - Stage 0: Pre-Setup') {
+    stage('(0/4): Pre-Setup') {
       
       steps {
         
@@ -22,77 +22,98 @@ pipeline {
           echo "TEMP_CHANGED=${TEMP_CHANGED}"
           
           if ((TEMP_CHANGED.contains("Jenkinsfile")) || (TEMP_CHANGED.contains(".go")) || (TEMP_CHANGED.contains(".sh")) || (TEMP_CHANGED.contains(".repo")) || (TEMP_CHANGED.contains(".service")) || (TEMP_CHANGED.contains("Dockerfile")) || (TEMP_CHANGED.contains(".yaml")) || (TEMP_CHANGED.contains("Makefile")) || (TEMP_CHANGED.contains("COPYING")) || (TEMP_CHANGED.contains("COMPATIBLE")) || (TEMP_CHANGED.contains(".proto")) || (TEMP_CHANGED.contains(".mod")) || (TEMP_CHANGED.contains(".sum"))){
-            echo "Important files were changed, run tests!"
+            echo "Important files were changed, need to run tests!"
             TEMP_NUM=1
           } else {
             echo "No important files were changed, no need to run tests!"
           }
         }
         
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'QUEUED', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'QUEUED', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'QUEUED', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+        publishChecks conclusion: 'NONE', name: '(1/4): Clean/restart arrays', status: 'QUEUED', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
+        publishChecks conclusion: 'NONE', name: '(2/4): Create csi-driver image', status: 'QUEUED', summary: 'Create csi-driver image', text: 'need to create the csi-driver image', title: 'Create csi-driver image'
+        publishChecks conclusion: 'NONE', name: '(3/4): Create k8s files', status: 'QUEUED', summary: 'Create k8s files', text: 'need to create k8s files', title: 'Create k8s files'
+        publishChecks conclusion: 'NONE', name: '(4/4): Build & test csi-driver', status: 'QUEUED', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
         sh 'env | sort'
         
       }
     }
-    
-    stage('Jenkins - Stage 1: Build csi-driver') {
+    stage('(1/4): Clean arrays') {
       
       steps {
         
-        publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 1: Build csi-driver', status: 'IN_PROGRESS', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
+        publishChecks conclusion: 'NONE', name: '(1/4): Clean/restart arrays', status: 'IN_PROGRESS', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
 
         script{
           if (TEMP_NUM.equals(1)){
-            echo "Building csi-driver . . ."
-            build job: 'job-build3', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
-            echo "Built csi-driver!"
+            echo "Cleaning/restarting arrays . . ."
+            build job: 'clean-arrays'
+            echo "Cleaned/restarted arrays!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
         }
 
-        publishChecks name: 'Jenkins - Stage 1: Build csi-driver', summary: 'Building csi-driver', text: 'need to build csi-driver', title: 'Building csi-driver'
+        publishChecks name: '(1/4): Clean/restart arrays', summary: 'Clean/restart arrays', text: 'need to clean/restart arrays', title: 'Clean/restart arrays'
       
       }
     }
-    stage('Jenkins - Stage 2: Build k8s files') {
+    
+    stage('(2/4): Create csi-driver image') {
+      
+      steps {
+        
+        publishChecks conclusion: 'NONE', name: '(2/4): Create csi-driver image', status: 'IN_PROGRESS', summary: 'Create csi-driver image', text: 'need to create the csi-driver image', title: 'Create csi-driver image'
+
+        script{
+          if (TEMP_NUM.equals(1)){
+            echo "Creating csi-driver image . . ."
+            build job: 'create-csi-driver-image', parameters: [string(name: 'PR_NUMBER', value: "${env.CHANGE_ID}")]
+            echo "Created csi-driver image!"
+          } else {
+            echo "Build not required, files changed do not affect tests!"
+          }
+        }
+
+        publishChecks name: '(2/4): Create csi-driver image', summary: 'Create csi-driver image', text: 'need to create csi-driver image', title: 'Create csi-driver image'
+      
+      }
+    }
+    stage('(3/4): Create k8s files') {
       
       steps {
         
         script {
-          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 2: Build k8s files', status: 'IN_PROGRESS', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
+          publishChecks conclusion: 'NONE', name: '(3/4): Create k8s files', status: 'IN_PROGRESS', summary: 'Create k8s files', text: 'need to create k8s files', title: 'Create k8s files'
 
           if (TEMP_NUM.equals(1)){
-            echo "Building k8s files . . ."
-            build job: 'csi-driver-PR', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
-            echo "Built k8s files!"
+            echo "Creating k8s files . . ."
+            build job: 'create-k8s-files', parameters: [string(name: 'UPSTREAM_EDGE_NUMBER', value: "${env.CHANGE_ID}")]
+            echo "Created k8s files!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
 
-          publishChecks name: 'Jenkins - Stage 2: Build k8s files', summary: 'Building k8s files', text: 'need to build k8s files', title: 'Building k8s files'
+          publishChecks name: '(3/4): Create k8s files', summary: 'Create k8s files', text: 'need to create k8s files', title: 'Create k8s files'
 
         }
       }
     }
-    stage('Jenkins - Stage 3: Test csi-driver') {
+    stage('(4/4): Build & test csi-driver') {
       
       steps {
         
         script {
-          publishChecks conclusion: 'NONE', name: 'Jenkins - Stage 3: Test csi-driver', status: 'IN_PROGRESS', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+          publishChecks conclusion: 'NONE', name: '(4/4): Build & test csi-driver', status: 'IN_PROGRESS', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
 
           if (TEMP_NUM.equals(1)){
-            echo "Testing csi-driver . . ."
-            build job: 'job-ext-test'
-            echo "Tested csi-driver!"
+            echo "Build & test csi-driver . . ."
+            build job: 'build-test-csi-driver'
+            echo "Built & tested csi-driver!"
           } else {
-            echo "No important files were changed, skipping stage!"
+            echo "Build not required, files changed do not affect tests!"
           }
 
-          publishChecks name: 'Jenkins - Stage 3: Test csi-driver', summary: 'Testing csi-driver', text: 'need to test csi-driver', title: 'Testing csi-driver'
+          publishChecks name: '(4/4): Build & test csi-driver', summary: 'Build & test csi-driver', text: 'need to build & test csi-driver', title: 'Build & test csi-driver'
 
         }
 
