@@ -6,7 +6,3 @@
     - name: Show my_var
       ansible.builtin.debug:
         msg: "my_var = {{ my_var | default('NOT SET') }}"
-
-    - name: Show all extra vars
-      ansible.builtin.debug:
-        msg: "All vars passed via extra-vars are visible here"
